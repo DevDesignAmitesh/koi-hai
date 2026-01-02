@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { Input } from "../components/Input";
 import { Button } from "../components/Button";
 import { PhrasesAutoGenerator } from "../components/PhrasesAutoGenerator";
-import { handleCreatePair } from "../utils/handleCreatePair";
 
 export interface FormDataProps {
   yourNickName: string;
@@ -27,15 +26,7 @@ export default function Onboarding({ type }: { type: startType }) {
     setFormData((prev) => ({ ...prev, [index]: value }));
   };
 
-  const handleSubmission = async () => {
-    const res = await handleCreatePair({
-      nicknameA: formData.yourNickName,
-      nicknameB: formData.partnerNickName,
-      sharedPhrase: formData.phrase,
-    });
-
-    console.log(res)
-  };
+  const handleSubmission = async () => {};
 
   useEffect(() => {
     const newValue = phrase.split(" ").join("-");
@@ -43,22 +34,22 @@ export default function Onboarding({ type }: { type: startType }) {
   }, [phrase]);
   return (
     <div className="w-full h-screen flex flex-col justify-center items-center gap-10">
-      <h1>
+      <h1 className="text-4xl font-semibold">
         {type === "create"
           ? "Create Your Private Space"
           : "Join Your Private Space"}
       </h1>
 
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-4">
         <Input
           label="Your Nick Name"
-          placeholder="Enter your nick-name"
+          placeholder="eg: Sir"
           value={formData.yourNickName}
           onChange={(e) => handleChange(e, "yourNickName")}
         />
         <Input
           label="Your Partner's Nick Name"
-          placeholder="Enter your partner's nick-name"
+          placeholder="eg: Madam"
           value={formData.partnerNickName}
           onChange={(e) => handleChange(e, "partnerNickName")}
         />
@@ -78,9 +69,8 @@ export default function Onboarding({ type }: { type: startType }) {
         {type === "create" && (
           <PhrasesAutoGenerator onChange={(e) => handleChange(e, "phrase")} />
         )}
+        <Button label="Next" onClick={handleSubmission} />
       </div>
-
-      <Button label="Next" onClick={handleSubmission} />
     </div>
   );
 }

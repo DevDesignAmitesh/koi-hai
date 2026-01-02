@@ -11,5 +11,12 @@ export const PhrasesAutoGenerator = ({
   const handleGeneration = () => {
     onChange(phrasesGenerator());
   };
-  return <Button label="Generate" onClick={handleGeneration} />;
+  return (
+    <button
+      onClick={handleGeneration}
+      className="border-2 text-[14px] font-semibold border-neutral-700 text-neutral-700 p-2 rounded-md w-full text-center"
+    >
+      Auto Generate Phrases
+    </button>
+  );
 };
