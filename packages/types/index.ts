@@ -1,4 +1,7 @@
 import z, { ZodError } from "zod";
+import { verify } from "jsonwebtoken";
+
+const JWT_SECRET = process.env.JWT_SECRET!;
 
 export const zodErrorMessage = ({ error }: { error: ZodError }) => {
   return error.issues
@@ -22,3 +25,11 @@ export const pairingSchema = z.object({
 export const pinSchema = z.object({
   pin: z.string().regex(/^\d{6}$/, "PIN must be a 6-digit number"),
 });
+
+export const verifyToken = ({
+  token,
+}: {
+  token: string;
+}): { userId: string } => {
+  return verify(token, JWT_SECRET) as { userId: string };
+};

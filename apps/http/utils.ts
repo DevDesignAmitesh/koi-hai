@@ -1,5 +1,5 @@
 import type { Response } from "express";
-import { sign, verify } from "jsonwebtoken";
+import { sign } from "jsonwebtoken";
 import { hash, compare } from "bcryptjs";
 
 const JWT_SECRET = process.env.JWT_SECRET!;
@@ -31,14 +31,6 @@ export const generateToken = ({ userId }: { userId: string }) => {
   return sign({ userId }, JWT_SECRET, {
     expiresIn: HOUR * 60 * 60 * 1000,
   });
-};
-
-export const verifyToken = ({
-  token,
-}: {
-  token: string;
-}): { userId: string } => {
-  return verify(token, JWT_SECRET) as { userId: string };
 };
 
 export const hashValue = async ({ input }: { input: string }) => {

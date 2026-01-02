@@ -1,5 +1,6 @@
 import type { NextFunction, Request, Response } from "express";
-import { responsePlate, verifyToken } from "./utils";
+import { responsePlate } from "./utils";
+import { verifyToken } from "@repo/types/types";
 
 export const middleware = (req: Request, res: Response, next: NextFunction) => {
   try {
