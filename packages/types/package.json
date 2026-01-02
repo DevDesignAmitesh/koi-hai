@@ -1,5 +1,7 @@
 {
-  "name": "@repo/db",
+  "name": "@repo/types",
+  "module": "index.ts",
+  "type": "module",
   "private": true,
   "devDependencies": {
     "@types/bun": "latest"
@@ -8,12 +10,9 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "@prisma/adapter-pg": "^7.2.0",
-    "@prisma/client": "^7.2.0",
-    "dotenv": "^17.2.3",
-    "prisma": "^7.2.0"
+    "zod": "^4.3.4"
   },
   "exports": {
-    "./db": "./index.ts"
+    "./types": "./index.ts"
   }
 }

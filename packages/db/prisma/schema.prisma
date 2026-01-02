@@ -7,21 +7,30 @@ datasource db {
   provider = "postgresql"
 }
 
+enum pairStatus {
+  COMPLETED
+  SINGLE
+  SUSPEND
+  DELETED
+}
+
 model User {
-  id           String           @id       @default(uuid())
-  name         String           @unique
-  pair         Pair? 
+  id            String @id @default(uuid())
+  name          String @unique
+  pin           String?
+  firstPartner  Pair?  @relation("firstPartner")
+  secondPartner Pair?  @relation("secondPartner")
 }
 
 model Pair {
-  id                         String           @id       @default(uuid())
+  id String @id @default(uuid())
 
-  userId                     String           @unique
-  user                       User             @relation(references: [id], fields: [userId])
+  firstPartnerId String @unique
+  firstPartner   User   @relation("firstPartner", references: [id], fields: [firstPartnerId])
 
-  firstPartnerNickName       String           @unique
-  secondPartnerNickName      String           @unique
-  phrase                     String           @unique
+  secondPartnerId String @unique
+  secondPartner   User   @relation("secondPartner", references: [id], fields: [secondPartnerId])
+
+  status                pairStatus
+  phrase                String     @unique
 }
-
-
