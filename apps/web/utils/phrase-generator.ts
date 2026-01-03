@@ -8,10 +8,10 @@ export const phrasesGenerator = () => {
     str += random_words[Math.floor(Math.random() * random_words.length)] + " ";
   }
 
-  const finalPhrase = str
+  str
     .split(" ")
     .filter((val) => val !== "")
     .join("-");
 
-  return finalPhrase;
+  return str;
 };

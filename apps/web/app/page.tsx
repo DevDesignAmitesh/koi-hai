@@ -1,3 +1,5 @@
+import { LandingPage } from "../pages-x/LandingPage";
+
 export default function Home() {
-  return <div>hi there</div>;
+  return <LandingPage />;
 }
