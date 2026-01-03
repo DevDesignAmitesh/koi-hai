@@ -9,6 +9,7 @@ export const LandingPage = () => {
   if (typeof window === "undefined") return;
   
   const todos = notesStorage.getTodos();
+
   return (
     <div className="relative h-screen w-full">
       {/* header */}
@@ -58,6 +59,7 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
     hour12: true,
     timeZone: "Asia/Kolkata",
   }).format(new Date(todo?.createdAt));
+
   return (
     <Link
       href={`/note/${todo.id}`}

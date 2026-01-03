@@ -1,10 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import { IoMdArrowBack } from "react-icons/io";
 import { notesStorage, Todo } from "../utils/notes-storage";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { BackButton } from "../components/BackButton";
 
 export const CreateOrEditNote = ({ id }: { id: string | null }) => {
   const todo = notesStorage.getTodo(id);
@@ -26,6 +25,18 @@ export const CreateOrEditNote = ({ id }: { id: string | null }) => {
   };
 
   const handleSubmit = () => {
+    if (formData.title === "register karo") {
+      router.push("/register");
+      return;
+    }
+
+    if (formData.title === "login karo") {
+      router.push("/login");
+      return;
+    }
+
+    // another check for checking if the title matches pair-phrase.
+
     if (todo) {
       notesStorage.editTodo(todo.id, formData);
     } else {
@@ -44,16 +55,11 @@ export const CreateOrEditNote = ({ id }: { id: string | null }) => {
     <div className="relative h-screen w-full">
       {/* header */}
       <div
-        className="w-full p-4 flex justify-between items-center 
+        className="w-full py-4 flex justify-between items-center 
           border-b border-neutral-300 
           dark:border-neutral-700"
       >
-        <Link
-          href={"/"}
-          className="text-lg font-semibold dark:text-neutral-400 text-neutral-800"
-        >
-          <IoMdArrowBack />
-        </Link>
+        <BackButton href="/" />
 
         <div className="flex justify-center items-center gap-4">
           {todo && (
