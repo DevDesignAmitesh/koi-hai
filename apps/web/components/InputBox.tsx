@@ -43,7 +43,8 @@ export const InputBox = ({
             bg-neutral-100 text-neutral-600
             "
           >
-            This phrase cannot be changed or recoverable later
+            Kindly remember this note safe as this phrase cannot be changed or
+            recoverable later
           </p>
         </div>
       ) : (

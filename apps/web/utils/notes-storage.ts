@@ -20,7 +20,7 @@ class NotesStorage {
 
   public addTodo(todo: Todo) {
     const todos = this.getTodos();
-    todos.push(todo);
+    todos.push({ ...todo, title: todo.title === "" ? "Untitled" : todo.title });
 
     this.saveTodos(todos);
   }
