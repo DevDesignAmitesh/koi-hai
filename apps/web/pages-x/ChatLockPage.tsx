@@ -4,51 +4,27 @@ import { LuDelete } from "react-icons/lu";
 import { BackButton } from "../components/BackButton";
 import { useEffect, useState } from "react";
 
-export const PinSetupPage = () => {
+export const ChatLockPage = () => {
   const [pin, setPin] = useState<string>("");
-  const [confirmedPin, setConfirmedPin] = useState<string>("");
-
-  const [confirm, setComfirm] = useState<boolean>(false);
 
   const handleSetPin = (val: string) => {
-    if (!confirm) {
-      if (pin.length === 6) return;
-      setPin((prev) => `${prev}${val}`);
-    } else {
-      if (confirmedPin.length === 6) return;
-      setConfirmedPin((prev) => `${prev}${val}`);
-    }
+    if (pin.length === 6) return;
+    setPin((prev) => `${prev}${val}`);
   };
 
   const handleDelPin = () => {
-    if (!confirm) {
-      if (pin.length < 1) return;
-      setPin(pin.slice(0, pin.length - 1));
-    } else {
-      if (confirmedPin.length < 1) return;
-      setConfirmedPin(confirmedPin.slice(0, confirmedPin.length - 1));
-    }
+    if (pin.length < 1) return;
+    setPin(pin.slice(0, pin.length - 1));
   };
 
   useEffect(() => {
     if (pin.length === 6) {
-      setComfirm(true);
+      handleSubmit();
     }
   }, [pin]);
 
-  useEffect(() => {
-    if (pin.length === 6 && confirmedPin.length === 6) {
-      handleSubmit();
-    }
-  }, [confirmedPin, pin]);
-
   const handleSubmit = () => {
-    if (pin !== confirmedPin) {
-      alert("pins are not matching each other, set again");
-      location.reload();
-      return;
-    }
-    alert("pins are good");
+    alert("let me match them");
   };
 
   return (
@@ -59,41 +35,41 @@ export const PinSetupPage = () => {
         border-b border-neutral-300 
         dark:border-neutral-700"
       >
-        <BackButton href="/login" />
+        <BackButton href="/private/settings" />
       </div>
 
       <h3 className="text-xl font-semibold dark:text-neutral-100 text-neutral-800">
-        {confirm ? "Confirm Pin" : "Create Pin"}
+        {"Enter Pin"}
       </h3>
       <p className="text-[15px] dark:text-neutral-400 text-neutral-500 mt-2">
-        {confirm ? "Re-Enter a 6-digit PIN" : "Enter a 6-digit PIN"}
+        {"Enter a 6-digit PIN"}
       </p>
 
       {/* opt completion layout */}
       <div className="flex justify-center items-center gap-4 mt-8">
         <p
           className={`h-3 w-3 rounded-full  
-            ${(!confirm ? pin.length >= 1 : confirmedPin.length >= 1) ? "dark:bg-neutral-200 bg-neutral-800" : "dark:bg-neutral-800 bg-neutral-200"}`}
+            ${pin.length >= 1 ? "dark:bg-neutral-200 bg-neutral-800" : "dark:bg-neutral-800 bg-neutral-200"}`}
         />
         <p
           className={`h-3 w-3 rounded-full  
-            ${(!confirm ? pin.length >= 2 : confirmedPin.length >= 2) ? "dark:bg-neutral-200 bg-neutral-800" : "dark:bg-neutral-800 bg-neutral-200"}`}
+            ${pin.length >= 2 ? "dark:bg-neutral-200 bg-neutral-800" : "dark:bg-neutral-800 bg-neutral-200"}`}
         />
         <p
           className={`h-3 w-3 rounded-full  
-            ${(!confirm ? pin.length >= 3 : confirmedPin.length >= 3) ? "dark:bg-neutral-200 bg-neutral-800" : "dark:bg-neutral-800 bg-neutral-200"}`}
+            ${pin.length >= 3 ? "dark:bg-neutral-200 bg-neutral-800" : "dark:bg-neutral-800 bg-neutral-200"}`}
         />
         <p
           className={`h-3 w-3 rounded-full  
-            ${(!confirm ? pin.length >= 4 : confirmedPin.length >= 4) ? "dark:bg-neutral-200 bg-neutral-800" : "dark:bg-neutral-800 bg-neutral-200"}`}
+            ${pin.length >= 4 ? "dark:bg-neutral-200 bg-neutral-800" : "dark:bg-neutral-800 bg-neutral-200"}`}
         />
         <p
           className={`h-3 w-3 rounded-full  
-            ${(!confirm ? pin.length >= 5 : confirmedPin.length >= 5) ? "dark:bg-neutral-200 bg-neutral-800" : "dark:bg-neutral-800 bg-neutral-200"}`}
+            ${pin.length >= 5 ? "dark:bg-neutral-200 bg-neutral-800" : "dark:bg-neutral-800 bg-neutral-200"}`}
         />
         <p
           className={`h-3 w-3 rounded-full  
-            ${(!confirm ? pin.length >= 6 : confirmedPin.length >= 6) ? "dark:bg-neutral-200 bg-neutral-800" : "dark:bg-neutral-800 bg-neutral-200"}`}
+            ${pin.length >= 6 ? "dark:bg-neutral-200 bg-neutral-800" : "dark:bg-neutral-800 bg-neutral-200"}`}
         />
       </div>
 

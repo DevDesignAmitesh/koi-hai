@@ -22,7 +22,7 @@ export const ThemeButton = () => {
         dark:text-neutral-400 dark:hover:bg-neutral-800
       "
     >
-      {!isDark ? <LuMoon /> : <LuSun />}
+      {isDark ? <LuSun /> : <LuMoon />}
     </button>
   );
 };

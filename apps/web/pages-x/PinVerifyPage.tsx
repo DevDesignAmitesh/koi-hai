@@ -41,7 +41,7 @@ export const PinVerifyPage = () => {
       <h3 className="text-xl font-semibold dark:text-neutral-100 text-neutral-800">
         {"Enter Pin"}
       </h3>
-      <p className="text-[15px] dark:text-neutral-400 text-neutral-400 mt-2">
+      <p className="text-[15px] dark:text-neutral-400 text-neutral-500 mt-2">
         {"Enter a 6-digit PIN"}
       </p>
 
@@ -49,27 +49,27 @@ export const PinVerifyPage = () => {
       <div className="flex justify-center items-center gap-4 mt-8">
         <p
           className={`h-3 w-3 rounded-full  
-            ${pin.length >= 1 ? "dark:bg-neutral-200 bg-neutral-800" : "dark:bg-neutral-800 bg-neutral-400"}`}
+            ${pin.length >= 1 ? "dark:bg-neutral-200 bg-neutral-800" : "dark:bg-neutral-800 bg-neutral-200"}`}
         />
         <p
           className={`h-3 w-3 rounded-full  
-            ${pin.length >= 2 ? "dark:bg-neutral-200 bg-neutral-800" : "dark:bg-neutral-800 bg-neutral-400"}`}
+            ${pin.length >= 2 ? "dark:bg-neutral-200 bg-neutral-800" : "dark:bg-neutral-800 bg-neutral-200"}`}
         />
         <p
           className={`h-3 w-3 rounded-full  
-            ${pin.length >= 3 ? "dark:bg-neutral-200 bg-neutral-800" : "dark:bg-neutral-800 bg-neutral-400"}`}
+            ${pin.length >= 3 ? "dark:bg-neutral-200 bg-neutral-800" : "dark:bg-neutral-800 bg-neutral-200"}`}
         />
         <p
           className={`h-3 w-3 rounded-full  
-            ${pin.length >= 4 ? "dark:bg-neutral-200 bg-neutral-800" : "dark:bg-neutral-800 bg-neutral-400"}`}
+            ${pin.length >= 4 ? "dark:bg-neutral-200 bg-neutral-800" : "dark:bg-neutral-800 bg-neutral-200"}`}
         />
         <p
           className={`h-3 w-3 rounded-full  
-            ${pin.length >= 5 ? "dark:bg-neutral-200 bg-neutral-800" : "dark:bg-neutral-800 bg-neutral-400"}`}
+            ${pin.length >= 5 ? "dark:bg-neutral-200 bg-neutral-800" : "dark:bg-neutral-800 bg-neutral-200"}`}
         />
         <p
           className={`h-3 w-3 rounded-full  
-            ${pin.length >= 6 ? "dark:bg-neutral-200 bg-neutral-800" : "dark:bg-neutral-800 bg-neutral-400"}`}
+            ${pin.length >= 6 ? "dark:bg-neutral-200 bg-neutral-800" : "dark:bg-neutral-800 bg-neutral-200"}`}
         />
       </div>
 
@@ -89,7 +89,7 @@ export const PinVerifyPage = () => {
                 onClick={handleDelPin}
                 key={idx}
                 className="h-14 w-28 flex justify-center items-center text-xl  rounded-md
-                dark:hover:bg-neutral-800 hover:bg-neutral-400
+                dark:hover:bg-neutral-800 hover:bg-neutral-200
                 dark:text-neutral-200 text-neutral-700"
               >
                 <LuDelete />
@@ -101,7 +101,7 @@ export const PinVerifyPage = () => {
               onClick={() => handleSetPin(`${idx + 1}`)}
               key={idx}
               className="h-14 w-28 flex justify-center items-center rounded-md text-xl font-semibold cursor-pointer
-            dark:hover:bg-neutral-800 hover:bg-neutral-400
+            dark:hover:bg-neutral-800 hover:bg-neutral-200
             dark:text-neutral-200 text-neutral-700
             "
             >
