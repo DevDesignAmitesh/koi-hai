@@ -1,18 +1,85 @@
 "use client";
 
-import { FiSend } from "react-icons/fi";
+import { useState } from "react";
 import { BackButton } from "../components/BackButton";
-import { useRef } from "react";
+import { TextArea } from "../components/TextArea";
+import { MessageProps } from "@repo/common/common";
+import { Chats } from "../components/Chats";
+
+const now = new Date();
+
+const getDate = (daysAgo: number) => {
+  const d = new Date(now);
+  d.setDate(d.getDate() - daysAgo);
+  return d.toISOString();
+};
+
+const dummyMessages: MessageProps[] = [
+  // ---- Day before yesterday ----
+  {
+    id: "1",
+    senderId: "userA",
+    message: "Hey, how was your day?",
+    createdAt: getDate(2),
+  },
+  {
+    id: "2",
+    senderId: "userB",
+    message: "Pretty good! Worked a lot though 😅",
+    createdAt: getDate(2),
+  },
+  {
+    id: "3",
+    senderId: "userA",
+    message: "Same here, but glad the day is over.",
+    createdAt: getDate(2),
+  },
+
+  // ---- Yesterday ----
+  {
+    id: "4",
+    senderId: "userB",
+    message: "Did you finish that feature?",
+    createdAt: getDate(1),
+  },
+  {
+    id: "5",
+    senderId: "userA",
+    message: "Almost! Just fixing some UI bugs.",
+    createdAt: getDate(1),
+  },
+  {
+    id: "6",
+    senderId: "userB",
+    message: "Nice, can’t wait to see it.",
+    createdAt: getDate(1),
+  },
+
+  // ---- Today ----
+  {
+    id: "7",
+    senderId: "userA",
+    message: "Good morning 🌞",
+    createdAt: getDate(0),
+  },
+  {
+    id: "8",
+    senderId: "userB",
+    message: "Morning! Ready for the day?",
+    createdAt: getDate(0),
+  },
+  {
+    id: "9",
+    senderId: "userA",
+    message: "Always! Let’s ship something today 🚀",
+    createdAt: getDate(0),
+  },
+];
 
 export const DiaryPage = () => {
-  const textRef = useRef<HTMLTextAreaElement>(null);
+  const [message, setMessage] = useState<string>("");
 
-  const autoResize = () => {
-    const el = textRef.current;
-    if(!el) return;
-    el.style.height = "0px";
-    el.style.height = el.scrollHeight + "px";
-  }
+  const [messages, setMessages] = useState<MessageProps[]>(dummyMessages);
 
   return (
     <div className="relative h-screen w-full">
@@ -29,21 +96,11 @@ export const DiaryPage = () => {
         </p>
       </div>
 
-      {/* input box */}
-      <div
-        className="absolute w-full bottom-0 px-2 py-4 border-t
-      dark:border-neutral-600 border-neutral-300 flex justify-center items-center gap-4"
-      >
-        <textarea
-          onInput={autoResize}
-          ref={textRef}
-          className="outline-none overflow-hidden h-13 max-h-40 resize-none bg-neutral-100 dark:bg-neutral-800 p-4 rounded-md w-full placeholder:text-[14px] text-[14px] placeholder:text-neutral-600 dark:placeholder:text-neutral-400"
-          placeholder="Write something...."
-        />
-        <button className="text-lg cursor-pointer font-semibold dark:text-neutral-400 text-neutral-800 p-3 rounded-lg dark:hover:bg-neutral-800 hover:bg-neutral-200">
-          <FiSend />
-        </button>
-      </div>
+      {/* rendering all the chats */}
+      <Chats messages={messages} />
+
+      {/* handling user input */}
+      <TextArea value={message} onChange={(val) => setMessage(val)} />
     </div>
   );
 };

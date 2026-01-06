@@ -58,6 +58,7 @@
         "tailwindcss": "^4.1.18",
       },
       "devDependencies": {
+        "@repo/common": "workspace:*",
         "@repo/eslint-config": "*",
         "@repo/typescript-config": "*",
         "@types/node": "^22.15.3",
@@ -76,6 +77,15 @@
       "devDependencies": {
         "@repo/db": "workspace:*",
         "@repo/types": "workspace:*",
+        "@types/bun": "latest",
+      },
+      "peerDependencies": {
+        "typescript": "^5",
+      },
+    },
+    "packages/common": {
+      "name": "@repo/common",
+      "devDependencies": {
         "@types/bun": "latest",
       },
       "peerDependencies": {
@@ -310,6 +320,8 @@
     "@prisma/query-plan-executor": ["@prisma/query-plan-executor@6.18.0", "", {}, "sha512-jZ8cfzFgL0jReE1R10gT8JLHtQxjWYLiQ//wHmVYZ2rVkFHoh0DT8IXsxcKcFlfKN7ak7k6j0XMNn2xVNyr5cA=="],
 
     "@prisma/studio-core": ["@prisma/studio-core@0.9.0", "", { "peerDependencies": { "@types/react": "^18.0.0 || ^19.0.0", "react": "^18.0.0 || ^19.0.0", "react-dom": "^18.0.0 || ^19.0.0" } }, "sha512-xA2zoR/ADu/NCSQuriBKTh6Ps4XjU0bErkEcgMfnSGh346K1VI7iWKnoq1l2DoxUqiddPHIEWwtxJ6xCHG6W7g=="],
+
+    "@repo/common": ["@repo/common@workspace:packages/common"],
 
     "@repo/db": ["@repo/db@workspace:packages/db"],
 
