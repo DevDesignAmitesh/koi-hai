@@ -3,14 +3,26 @@
 import { LuDelete } from "react-icons/lu";
 import { BackButton } from "../components/BackButton";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import { useCreatePin } from "@repo/hooks/hooks";
+import { HTTP_URL, notify } from "../utils/lib";
+import { useRouter } from "next/navigation";
 
 export const PinSetupPage = () => {
+  if (typeof window === "undefined") return;
+
+  const TOKEN = localStorage.getItem("token");
+
   const [pin, setPin] = useState<string>("");
   const [confirmedPin, setConfirmedPin] = useState<string>("");
 
   const [confirm, setComfirm] = useState<boolean>(false);
 
+  const router = useRouter();
+
   const handleSetPin = (val: string) => {
+    if (loading) return;
+
     if (!confirm) {
       if (pin.length === 6) return;
       setPin((prev) => `${prev}${val}`);
@@ -21,6 +33,8 @@ export const PinSetupPage = () => {
   };
 
   const handleDelPin = () => {
+    if (loading) return;
+
     if (!confirm) {
       if (pin.length < 1) return;
       setPin(pin.slice(0, pin.length - 1));
@@ -28,6 +42,34 @@ export const PinSetupPage = () => {
       if (confirmedPin.length < 1) return;
       setConfirmedPin(confirmedPin.slice(0, confirmedPin.length - 1));
     }
+  };
+
+  const { handleCreatePin, loading } = useCreatePin();
+
+  const handleSuccess = () => {
+    router.push("/pin-verify");
+  };
+
+  const handleSubmit = () => {
+    if (loading) return;
+    if (!TOKEN) return;
+
+    if (pin !== confirmedPin) {
+      toast.error("Both PIN are not same/equal, set again");
+      location.reload();
+      return;
+    }
+
+    handleCreatePin({
+      input: {
+        confirmedPin,
+        pin,
+      },
+      handleSuccess,
+      HTTP_URL: HTTP_URL,
+      notify: notify,
+      TOKEN: TOKEN,
+    });
   };
 
   useEffect(() => {
@@ -41,15 +83,6 @@ export const PinSetupPage = () => {
       handleSubmit();
     }
   }, [confirmedPin, pin]);
-
-  const handleSubmit = () => {
-    if (pin !== confirmedPin) {
-      alert("pins are not matching each other, set again");
-      location.reload();
-      return;
-    }
-    alert("pins are good");
-  };
 
   return (
     <div className="relative h-screen w-full flex flex-col justify-center items-center">

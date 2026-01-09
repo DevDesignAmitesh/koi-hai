@@ -1,31 +1,44 @@
 "use client";
 
-import { useState } from "react";
+import { JSX, useState } from "react";
 import { BackButton } from "../components/BackButton";
 import { InputBox } from "../components/InputBox";
 import { Button } from "../components/Button";
+import { CreatePairProps } from "@repo/types/types";
+import { useCreatePair } from "@repo/hooks/hooks";
+import { HTTP_URL, notify } from "../utils/lib";
+import { useRouter } from "next/navigation";
 
-interface RegisterProps {
-  yourNickName: string;
-  partnerNickName: string;
-  phrase: string;
-}
+export default function RegisterPage(): JSX.Element {
+  const router = useRouter();
 
-export default function RegisterPage() {
-  const [formData, setFormData] = useState<RegisterProps>({
-    partnerNickName: "",
+  const [formData, setFormData] = useState<CreatePairProps>({
+    partnersNickName: "",
     phrase: "",
     yourNickName: "",
   });
 
-  const handleChange = (val: string, index: keyof RegisterProps) => {
+  const handleChange = (val: string, index: keyof CreatePairProps) => {
     setFormData((prev) => ({
       ...prev,
       [index]: val,
     }));
   };
 
-  const handleSubmit = () => {};
+  const { handleCreatePair, loading } = useCreatePair();
+
+  const handleSuccess = () => {
+    router.push("/login");
+  };
+
+  const handleSubmit = () => {
+    handleCreatePair({
+      input: formData,
+      handleSuccess,
+      HTTP_URL: HTTP_URL,
+      notify: notify,
+    });
+  };
   return (
     <div className="relative h-screen w-full">
       {/* header */}
@@ -39,6 +52,7 @@ export default function RegisterPage() {
 
       <div className="w-full grid gap-6 px-8 mt-6">
         <InputBox
+          disabled={loading}
           label={"Your nickname"}
           placeholder={"Enter your nickname"}
           value={formData.yourNickName}
@@ -46,13 +60,15 @@ export default function RegisterPage() {
         />
 
         <InputBox
+          disabled={loading}
           label={"Partner's nickname"}
           placeholder={"Enter partner's nickname"}
-          value={formData.partnerNickName}
-          onChange={(val) => handleChange(val, "partnerNickName")}
+          value={formData.partnersNickName}
+          onChange={(val) => handleChange(val, "partnersNickName")}
         />
 
         <InputBox
+          disabled={loading}
           type="phrase"
           label={"Secret phrase"}
           placeholder={"Enter or generate phrase"}
@@ -60,7 +76,11 @@ export default function RegisterPage() {
           onChange={(val) => handleChange(val, "phrase")}
         />
 
-        <Button label={"Continue"} onClick={handleSubmit} />
+        <Button
+          disabled={loading}
+          label={loading ? "Processing...." : "Continue"}
+          onClick={handleSubmit}
+        />
       </div>
     </div>
   );

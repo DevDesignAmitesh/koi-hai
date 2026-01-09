@@ -1,0 +1,21 @@
+{
+  "name": "@repo/hooks",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@repo/types": "workspace:*"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@types/react": "^19.2.7",
+    "axios": "^1.13.2",
+    "react": "^19.2.3"
+  },
+  "exports": {
+    "./hooks": "./index.ts"
+  }
+}

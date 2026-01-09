@@ -15,15 +15,44 @@ export const createPairSchema = z.object({
   phrase: z.string().min(3, "phrase is too short"),
 });
 
-// will be used for login, complete-pair
+export interface CreatePairProps {
+  yourNickName: string;
+  partnersNickName: string;
+  phrase: string;
+}
+
+export interface PairingProps {
+  yourNickName: string;
+  phrase: string;
+}
+
+export interface PinProps {
+  pin: string;
+}
+
+export interface CreatePinProps {
+  pin: string;
+  confirmedPin: string;
+}
+
+export interface Notify {
+  success: (input: string) => void;
+  error: (input: string) => void;
+}
+
+// will be used for login | complete-pair
 export const pairingSchema = z.object({
   phrase: z.string().min(3, "phrase is too short"),
   yourNickName: z.string().min(3, "your nick name is too short"),
-  type: z.enum(["login", "complete-pair"]),
 });
 
 export const pinSchema = z.object({
   pin: z.string().regex(/^\d{6}$/, "PIN must be a 6-digit number"),
+});
+
+export const createPinSchema = z.object({
+  pin: z.string().regex(/^\d{6}$/, "PIN must be a 6-digit number"),
+  confirmedPin: z.string().regex(/^\d{6}$/, "PIN must be a 6-digit number"),
 });
 
 export const verifyToken = ({

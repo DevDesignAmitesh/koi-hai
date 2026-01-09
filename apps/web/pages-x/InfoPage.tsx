@@ -119,7 +119,14 @@ export const InfoPage = () => {
           <div className="space-y-4 mb-8 text-neutral-600 dark:text-neutral-400">
             <div className="flex gap-4">
               <span className="text-sm w-6 shrink-0">1.</span>
-              <p>Open the app — it looks like a normal notes app</p>
+              <p>
+                <span>
+                  <Link href={"/"} className="underline">
+                    Open the app
+                  </Link>
+                </span>{" "}
+                — it looks like a normal notes app
+              </p>
             </div>
             <div className="flex gap-4">
               <span className="text-sm w-6 shrink-0">2.</span>

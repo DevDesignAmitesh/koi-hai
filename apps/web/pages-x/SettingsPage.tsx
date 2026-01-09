@@ -47,13 +47,13 @@ export const SettingsPage = () => {
           isCondition={isDark}
         />
 
-        <SettingsBulbs
+        {/* <SettingsBulbs
           icon={<FiLock />}
           label={"Chat Lock"}
           onClick={handleClick}
           // TODO: here we have to get the data from the db that is the user'c chat lock disabled on enabled
           isCondition={false}
-        />
+        /> */}
       </div>
     </div>
   );

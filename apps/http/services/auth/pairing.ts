@@ -5,10 +5,7 @@ import { prisma } from "@repo/db/db";
 
 export const pairingService = async (req: Request, res: Response) => {
   try {
-    const { success, data, error } = pairingSchema.safeParse({
-      ...req.body,
-      ...req.params,
-    });
+    const { success, data, error } = pairingSchema.safeParse(req.body);
 
     if (!success) {
       return responsePlate({
@@ -18,7 +15,7 @@ export const pairingService = async (req: Request, res: Response) => {
       });
     }
 
-    const { phrase, yourNickName, type } = data;
+    const { phrase, yourNickName } = data;
 
     const existingUser = await prisma.user.findFirst({
       where: {
@@ -52,38 +49,25 @@ export const pairingService = async (req: Request, res: Response) => {
       });
     }
 
-    if (type === "complete-pair") {
-      await prisma.pair.update({
-        where: {
-          id: existingPair.id,
-        },
-        data: {
-          status: "COMPLETED",
-        },
-      });
+    await prisma.pair.update({
+      where: {
+        id: existingPair.id,
+      },
+      data: {
+        status: "COMPLETED",
+      },
+    });
 
-      return responsePlate({
-        res,
-        status: 201,
-        message: "Pair completed successfully",
-      });
-    } else if (type === "login") {
-      const token = generateToken({ userId: existingUser.id });
-
-      return responsePlate({
-        res,
-        status: 200,
-        message: "Login successfull",
-        data: {
-          token,
-        },
-      });
-    }
+    const token = generateToken({ userId: existingUser.id });
 
     return responsePlate({
       res,
-      message: "Invalid argument provided",
-      status: 400,
+      status: 201,
+      message: "Pair completed successfully",
+      data: {
+        token,
+        redirectUrl: existingUser.pin ? "/pin-verify" : "/pin-setup",
+      },
     });
   } catch (e) {
     return responsePlate({

@@ -5,6 +5,7 @@ interface InputBoxProps {
   type?: "phrase";
   mode?: "login";
   label: string;
+  disabled: boolean;
   placeholder: string;
   value: string;
   onChange: (val: string) => void;
@@ -17,6 +18,7 @@ export const InputBox = ({
   placeholder,
   value,
   onChange,
+  disabled,
 }: InputBoxProps) => {
   return (
     <div className="flex flex-col justify-start items-start gap-2 w-full">
@@ -27,9 +29,10 @@ export const InputBox = ({
         <div className="flex flex-col justify-center items-center gap-4 w-full">
           <div className="flex justify-center items-center gap-4 w-full">
             <input
+              disabled={disabled}
               className="p-2 rounded-md border w-full placeholder:text-[14px]
-          dark:border-neutral-700 border-neutral-300 
-          dark:placeholder:text-neutral-400 placeholder:text-neutral-500"
+            dark:border-neutral-700 border-neutral-300 
+            dark:placeholder:text-neutral-400 placeholder:text-neutral-500"
               placeholder={placeholder}
               value={value}
               onChange={(e) => onChange(e.target.value)}
@@ -43,8 +46,7 @@ export const InputBox = ({
             bg-neutral-100 text-neutral-600
             "
           >
-            Kindly remember this note safe as this phrase cannot be changed or
-            recoverable later
+            Share with your partner && DO NOT FORGET IT.
           </p>
         </div>
       ) : (

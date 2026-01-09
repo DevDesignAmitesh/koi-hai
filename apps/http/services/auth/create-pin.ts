@@ -1,12 +1,12 @@
 import type { Request, Response } from "express";
 import { hashValue, responsePlate } from "../../utils";
-import { pinSchema, zodErrorMessage } from "@repo/types/types";
+import { createPinSchema, zodErrorMessage } from "@repo/types/types";
 import { prisma } from "@repo/db/db";
 
 export const createPinService = async (req: Request, res: Response) => {
   try {
     const userId = req.userId;
-    const { success, data, error } = pinSchema.safeParse(req.body);
+    const { success, data, error } = createPinSchema.safeParse(req.body);
 
     if (!success) {
       return responsePlate({
@@ -16,7 +16,15 @@ export const createPinService = async (req: Request, res: Response) => {
       });
     }
 
-    const { pin } = data;
+    const { pin, confirmedPin } = data;
+
+    if (pin.trim() !== confirmedPin.trim()) {
+      return responsePlate({
+        res,
+        message: "BOTH PINS are not equal/same",
+        status: 400,
+      });
+    }
 
     const hashedPin = await hashValue({ input: pin });
 
